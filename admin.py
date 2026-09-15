@@ -1,20 +1,28 @@
 from django.contrib import admin
-from .models import Autor
+from .models import Livro
 
 
-@admin.register(Autor)
-class AutorAdmin(admin.ModelAdmin):
+@admin.register(Livro)
+class LivroAdmin(admin.ModelAdmin):
     list_display = (
-        'nome',
-        'nacionalidade',
-        'data_nascimento',
-    )
-
-    search_fields = (
-        'nome',
-        'nacionalidade',
+        'titulo',
+        'autor',
+        'categoria',
+        'isbn',
+        'ano_publicacao',
+        'quantidade_paginas',
+        'disponivel',
     )
 
     list_filter = (
-        'nacionalidade',
+        'disponivel',
+        'categoria',
+        'ano_publicacao',
     )
+
+    search_fields = (
+        'titulo',
+        'isbn',
+        'autor__nome',
+    )
+

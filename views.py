@@ -1,18 +1,28 @@
 from django.http import JsonResponse
-from .models import Autor
+from .models import Livro
 
 
-def listar_autores(request):
-    autores = Autor.objects.all()
+def listar_livros(request):
+    livros = Livro.objects.all()
 
     dados = []
 
-    for autor in autores:
+    for livro in livros:
         dados.append({
-            'id': autor.id,
-            'nome': autor.nome,
-            'nacionalidade': autor.nacionalidade,
-            'data_nascimento': autor.data_nascimento,
+            'id': livro.id,
+            'titulo': livro.titulo,
+            'isbn': livro.isbn,
+            'ano_publicacao': livro.ano_publicacao,
+            'quantidade_paginas': livro.quantidade_paginas,
+            'disponivel': livro.disponivel,
+            'autor': livro.autor.nome,
+            'categoria': livro.categoria.nome,
         })
 
-    return JsonResponse(dados, safe=False)
+    resposta = {
+        'total': len(dados),
+        'livros': dados
+    }
+
+    return JsonResponse(resposta)
+
